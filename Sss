@@ -1,0 +1,101 @@
+import turtle
+
+# --- Настройки экрана ---
+SUN_CIRCLE = turtle.Turtle()
+SUN_CIRCLE.speed(0)
+SUN_CIRCLE.hideturtle()
+SUN_LINES = turtle.Turtle()
+SUN_LINES.speed(0)
+SUN_LINES.hideturtle()
+CLOUD = turtle.Turtle()
+CLOUD.speed(0)
+CLOUD.hideturtle()
+FLOWER = turtle.Turtle()
+FLOWER.speed(0)
+FLOWER.hideturtle()
+STEM = turtle.Turtle()
+STEM.speed(0)
+STEM.hideturtle()
+PETAL = turtle.Turtle()
+PETAL.speed(0)
+PETAL.hideturtle()
+
+screen = turtle.Screen()
+screen.bgcolor("lightblue")
+screen.setup(width=800, height=700)
+
+# Солнце
+def create_sun(x_line, y_line, color_lines, forward_lines, width_lines, x_circle, y_circle, color_circle, size_width_circle, size_circle):
+    SUN_LINES.color(color_lines)
+    SUN_LINES.width(width_lines)
+    for i in range(16):
+        SUN_LINES.penup()
+        SUN_LINES.goto(x_line, y_line)
+        SUN_LINES.pendown()
+        SUN_LINES.setheading(i * 22.5)
+        SUN_LINES.forward(forward_lines)
+    SUN_CIRCLE.width(size_width_circle)
+    SUN_CIRCLE.penup()
+    SUN_CIRCLE.goto(x_circle, y_circle)
+    SUN_CIRCLE.pendown()
+    SUN_CIRCLE.color(color_circle)
+    SUN_CIRCLE.begin_fill()
+    SUN_CIRCLE.circle(size_circle)
+    SUN_CIRCLE.end_fill()
+
+# Облако
+def create_cloud(color_cloud, offsets):
+    CLOUD.color(color_cloud)
+    coords = [(100, 280, 40),
+              (70, 290, 30),
+              (130, 290, 30),
+              (50, 270, 25),
+              (150, 270, 25),
+              (100, 260, 35)]
+    for dx, dy in offsets:
+        for a, b, x in coords:
+            CLOUD.penup()
+            CLOUD.goto(a + dx, b + dy - x)
+            CLOUD.pendown()
+            CLOUD.begin_fill()
+            CLOUD.circle(x)
+            CLOUD.end_fill()
+
+# Цветок
+def create_flower(color_stem, x_stem, y_stem, setheading_stem, width_stem, forward_stem, color_petal, x_petal, y_petal, circle_petal_x, circle_petal_y, x_flower, y_flower, color_flower, circle_flower):
+    # Стебель
+    STEM.color(color_stem)
+    STEM.width(width_stem)
+    STEM.penup()
+    STEM.goto(x_stem, y_stem)
+    STEM.pendown()
+    STEM.setheading(setheading_stem)
+    STEM.forward(forward_stem)
+    
+    # Лепестки
+    PETAL.width(width_stem)
+    PETAL.color(color_petal)
+    for i in range(8):
+        PETAL.penup()
+        PETAL.goto(x_petal, y_petal)
+        PETAL.pendown()
+        PETAL.setheading(i * 45)
+        PETAL.begin_fill()
+        PETAL.circle(circle_petal_x, circle_petal_y)
+        PETAL.end_fill()
+    
+    # Сердцевина цветка
+    FLOWER.penup()
+    FLOWER.goto(x_flower, y_flower)
+    FLOWER.pendown()
+    FLOWER.color(color_flower)
+    FLOWER.begin_fill()
+    FLOWER.circle(circle_flower)
+    FLOWER.end_fill()
+
+# Вызов функций
+create_flower("darkgreen", 0, -350, 90, 1, 120, "pink", 0, -230, 30, 180, 0, -230, "yellow", 20)
+create_cloud("white", [(-350, 0), (-180, -80), (0, -30)])
+create_sun(280, 250, "orange", 91, 6, 280, 220, "yellow", 59, 31)
+
+turtle.done()
