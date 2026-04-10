@@ -1,0 +1,36 @@
+class Monster:
+    def __init__(self, name="Неизвестная тварь", hp=100, dmg=10):
+        self.name = name
+        self.hp = hp
+        self.dmg = dmg
+        print(f"Монстр: {self.name}")
+        print(f"HP: {self.hp}")
+        print(f"DMG: {self.dmg}")
+
+# Ввод данных
+data1 = input().split()
+data2 = input().split()
+
+# Создание монстров
+m1 = Monster(name=data1[0], hp=int(data1[1]), dmg=int(data1[2]))
+m2 = Monster(name=data2[0], hp=int(data2[1]), dmg=int(data2[2]))
+
+# Битва
+while True:
+    print(f"{m1.name} наносит удар!")
+    m2.hp -= m1.dmg
+    if m2.hp < 0:
+        m2.hp = 0
+    print(f"У {m2.name} осталось {m2.hp} HP")
+    if m2.hp == 0:
+        print(f"Победил {m1.name}!")
+        break
+
+    print(f"{m2.name} наносит удар!")
+    m1.hp -= m2.dmg
+    if m1.hp < 0:
+        m1.hp = 0
+    print(f"У {m1.name} осталось {m1.hp} HP")
+    if m1.hp == 0:
+        print(f"Победил {m2.name}!")
+        break
